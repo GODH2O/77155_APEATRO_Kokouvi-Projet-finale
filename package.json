@@ -1,0 +1,32 @@
+{
+  "name": "77155_apeatro_kokouvi-projet-finale",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u00007\u00007\u00001\u00005\u00005\u0000_\u0000A\u0000P\u0000E\u0000A\u0000T\u0000R\u0000O\u0000_\u0000K\u0000o\u0000k\u0000o\u0000u\u0000v\u0000i\u0000-\u0000P\u0000r\u0000o\u0000j\u0000e\u0000t\u0000-\u0000f\u0000i\u0000n\u0000a\u0000l\u0000e\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GODH2O/77155_APEATRO_Kokouvi-Projet-finale.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GODH2O/77155_APEATRO_Kokouvi-Projet-finale/issues"
+  },
+  "homepage": "https://github.com/GODH2O/77155_APEATRO_Kokouvi-Projet-finale#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.16.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
