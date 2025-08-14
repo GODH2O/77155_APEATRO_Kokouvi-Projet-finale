@@ -1,0 +1,41 @@
+{
+  "email": "caissier@example.com",
+  "password": "Cashier202",
+  "nom": "mamalo",
+  "prenom": "dersir",
+  "role": "client",
+  "zone": "Kara"
+}
+{
+  "email": "admin@example.com",
+  "password": "Admin2024",
+  "nom": "Kouassi",
+  "prenom": "Brigitte",
+  "role": "admin",
+  "zone": "Sokodé"
+},
+
+{
+  "email": "superadmin@example.com",
+  "password": "SuperAdmin2024",
+  "nom": "Agbo",
+  "prenom": "Jean",
+  "role": "admin",
+  "zone": "Lomé"
+}
+{
+  "email": "client@example.com",
+  "password": "Client123",
+  "nom": "Mensah",
+  "prenom": "Kodjo",
+  "role": "livreur",
+  "zone": "Atakpamé"
+}
+{
+  "email": "livreuse@example.com",
+  "password": "Deliver@2024",
+  "nom": "Lawson",
+  "prenom": "Mariam",
+  "role": "gerant",
+  "zone": "Dapaong"
+}
