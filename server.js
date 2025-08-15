@@ -20,7 +20,7 @@ app.use('/order', orderRoute); // Middleware pour les routes de commande
 app.use(cors()); // Middleware CORS pour autoriser les requêtes cross-origin
 
 
-const swaggerDocs = require("./swagger");
+const swaggerDocs = require("./extras/swagger");
 swaggerDocs(app);
 
 require("./models/user"); // Importation du modèle utilisateur
