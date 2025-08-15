@@ -80,9 +80,9 @@ const updateProductById = async (req, res) => {
         const data = req.body;
         const produit = await Produit.findByIdAndUpdate(id, data, {new: true});
         if (!produit) {
-            return res.status(404).json({message: 'Product not found'});
+            return res.status(404).json({message: 'Produit non trouvé'});
         }
-        res.status(200).json(product);
+        res.status(200).json(produit);
     } catch (error) {
         res.status(500).json({message: error.message});
     }
@@ -93,9 +93,9 @@ const deleteProductById = async (req, res) => {
         const {id} = req.params;
         const produit = await Produit.findByIdAndDelete(id);
         if (!produit) {
-            return res.status(404).json({message: 'Product not found'});
+            return res.status(404).json({message: 'produit non trouvé'});
         }
-        res.status(200).json({message: 'Product deleted successfully'});
+        res.status(200).json({message: 'poduit supprimé avec succès'});
 
     } catch (error) {
         res.status(500).json({message: error.message});
@@ -105,8 +105,8 @@ const deleteProductById = async (req, res) => {
 const insertManyProducts = async (req, res) => {
     try {
         const data = req.body;
-        const products = await Product.insertMany(data, {ordered: false, upsert: true});
-        res.status(201).json(products);
+        const produits = await ProduIt.insertMany(data, {ordered: false, upsert: true});
+        res.status(201).json(produits);
     } catch (error) {
         res.status(500).json({message: error.message});
     }
