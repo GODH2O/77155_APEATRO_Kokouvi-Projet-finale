@@ -1,0 +1,62 @@
+[
+{
+  "nom": "Yaourt nature 500g",
+  "description": "Yaourt nature crémeux",
+  "prix": 1200,
+  "quantite": 10,
+  "categorieId": "66cfe12a3b21ab3c4f7d2234",
+  "fournisseurId": "66cfe1f93b21ab3c4f7d6678",
+  "expiryDate": "2025-08-20",
+  "createdBy": "66cfe2453b21ab3c4f7d9912"
+},
+{
+  "nom": "Riz parfumé 5kg",
+  "description": "Riz parfumé de haute qualité, origine Thaïlande",
+  "prix": 7500,
+  "quantite": 20,
+  "categorieId": "66cfe12a3b21ab3c4f7d1234",
+  "fournisseurId": "66cfe1f93b21ab3c4f7d5678",
+  "expiryDate": "2026-05-01",
+  "createdBy": "66cfe2453b21ab3c4f7d9012"
+},
+{
+  "nom": "Biscuit au beurre",
+  "description": "Biscuit au beurre croustillant",
+  "prix": 800,
+  "quantite": 5,
+  "categorieId": "66cfe12a3b21ab3c4f7d3234",
+  "fournisseurId": "66cfe1f93b21ab3c4f7d7678",
+  "expiryDate": "2024-05-10",
+  "createdBy": "66cfe2453b21ab3c4f7da012"
+},
+{
+  "nom": "Savon liquide 1L",
+  "description": "Savon liquide antibactérien parfum lavande",
+  "prix": 3500,
+  "quantite": 15,
+  "categorieId": "66cfe12a3b21ab3c4f7d4234",
+  "fournisseurId": "66cfe1f93b21ab3c4f7d8678",
+  "expiryDate": "2027-01-01",
+  "createdBy": "66cfe2453b21ab3c4f7db012"
+},
+{
+  "nom": "Pâtes complètes 500g",
+  "description": "Pâtes complètes riches en fibres",
+  "prix": 1200,
+  "quantite": 30,
+  "categorieId": "66cfe12a3b21ab3c4f7d2234",
+  "fournisseurId": "66cfe1f93b21ab3c4f7d6678",
+  "expiryDate": "2025-09-15",
+  "createdBy": "66cfe2453b21ab3c4f7d9912"
+},
+{
+  "nom": "Café moulu 250g",
+  "description": "Café moulu de qualité supérieure, origine Colombie",
+  "prix": 1500,
+  "quantite": 25,
+  "categorieId": "66cfe12a3b21ab3c4f7d1234",
+  "fournisseurId": "66cfe1f93b21ab3c4f7d5678",
+  "expiryDate": "2025-12-31",
+  "createdBy": "66cfe2453b21ab3c4f7d9012"
+}
+]

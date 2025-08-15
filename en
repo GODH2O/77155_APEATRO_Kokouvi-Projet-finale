@@ -1,11 +1,12 @@
-{
+
+[{
   "email": "caissier@example.com",
   "password": "Cashier202",
   "nom": "mamalo",
   "prenom": "dersir",
   "role": "client",
   "zone": "Kara"
-}
+},
 {
   "email": "admin@example.com",
   "password": "Admin2024",
@@ -22,7 +23,7 @@
   "prenom": "Jean",
   "role": "admin",
   "zone": "Lomé"
-}
+},
 {
   "email": "client@example.com",
   "password": "Client123",
@@ -30,7 +31,7 @@
   "prenom": "Kodjo",
   "role": "livreur",
   "zone": "Atakpamé"
-}
+},
 {
   "email": "livreuse@example.com",
   "password": "Deliver@2024",
@@ -39,3 +40,4 @@
   "role": "gerant",
   "zone": "Dapaong"
 }
+]
