@@ -25,19 +25,99 @@ const addProduit = async (req, res) => {
 // listes des produits
 const getAllProduits = async (req, res) => {
     try {
-        const produits = await Produit.find().sort({ createdAt: -1});
-        return res.status(200).json(produits); // Réponse de succès avec la liste des produits
+        //Récupération des paramètres de requête avec valeurs par défaut
+        let {
+            page = 1,
+            limit = 10,
+            sortBy = "createdAt",
+            order = "desc",
+            search = "",
+            category,
+            prixMin,
+            prixMax,
+            dateMin,
+            dateMax
+        } = req.query;
+
+        // Conversion des valeurs
+        page = parseInt(page);
+        limit = parseInt(limit);
+
+        //Construction des filtres
+        const filters = {};
+
+        // 🔍 Recherche par nom
+        if (search) {
+            filters.nom = { $regex: search, $options: "i" };
+        }
+
+        //Filtre par catégorie
+        if (category) {
+            filters.categorie = category;
+        }
+
+        //Filtre par plage de prix
+        if (prixMin || prixMax) {
+            filters.prix = {};
+            if (prixMin) filters.prix.$gte = parseFloat(prixMin);
+            if (prixMax) filters.prix.$lte = parseFloat(prixMax);
+        }
+
+        //Filtre par date de création
+        if (dateMin || dateMax) {
+            filters.createdAt = {};
+            if (dateMin) filters.createdAt.$gte = new Date(dateMin);
+            if (dateMax) filters.createdAt.$lte = new Date(dateMax);
+        }
+
+        //Tri
+        const sortOrder = order === "asc" ? 1 : -1;
+        const sortCriteria = { [sortBy]: sortOrder };
+
+        //Récupération des produits
+        const produits = await Produit.find(filters)
+            .sort(sortCriteria)
+            .skip((page - 1) * limit)
+            .limit(limit);
+
+        //Nombre total pour pagination
+        const total = await Produit.countDocuments(filters);
+
+        //Réponse
+        return res.status(200).json({
+            page,
+            limit,
+            totalProduits: total,
+            totalPages: Math.ceil(total / limit),
+            sortBy,
+            order,
+            filtersApplied: filters,
+            produits
+        });
 
     } catch (error) {
-        return res.status(500).json({ message: "Erreur lors de la récupération des produits", error: error.message }); // Réponse d'erreur en cas d'erreur lors de la récupération
+        return res.status(500).json({
+            message: "Erreur lors de la récupération des produits",
+            error: error.message
+        });
     }
+};
+
+// const getAllProduits = async (req, res) => {
+//     try {
+//         const produits = await Produit.find().sort({ createdAt: -1});
+//         return res.status(200).json(produits); // Réponse de succès avec la liste des produits
+
+//     } catch (error) {
+//         return res.status(500).json({ message: "Erreur lors de la récupération des produits", error: error.message }); // Réponse d'erreur en cas d'erreur lors de la récupération
+//     }
 
 //     Client → GET /products
 // Serveur → Product.find() + sort
 // Serveur → 200 OK + liste triée
 // Ou erreur → 500 + message
 
-};
+
 
 // prendre tous les produits via user_id
 const getAllProductsByUserId = async (req, res) => {

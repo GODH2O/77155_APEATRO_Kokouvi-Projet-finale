@@ -11,7 +11,7 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 
-//CORS Configuration
+// 1. CORS Configuration
 const corsOptions = {
     origin: ['http://localhost:4500', 'http://localhost:4501'], // Domaines autorisés
     credentials: true, // Pour les cookies et auth
@@ -19,7 +19,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// Helmet Configuration (sécurité des headers)
+// 2. Helmet Configuration (sécurité des headers)
 app.use(helmet({
     contentSecurityPolicy: {
         directives: {
@@ -32,25 +32,25 @@ app.use(helmet({
     crossOriginEmbedderPolicy: false // Si vous avez des problèmes avec les images
 }));
 
-// XSS Protection
+// 3. XSS Protection
 app.use(xss()); // Nettoie les données malveillantes
 
-//Body parsing middleware
+// 4. Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-//CSRF Protection
+// 5. CSRF Protection
 const csrfProtection = csrf({
     cookie: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'produition', // HTTPS en produition
+        secure: process.env.NODE_ENV === 'production', // HTTPS en production
         sameSite: 'strict'
     }
 });
 
 // Appliquer CSRF sur les routes qui en ont besoin
-app.use('/', csrfProtection);
+app.use('/api', csrfProtection);
 
 // Route pour obtenir le token CSRF
 app.get('/api/csrf-token', (req, res) => {
@@ -58,12 +58,12 @@ app.get('/api/csrf-token', (req, res) => {
 });
 
 // Vos routes ici...
-app.use('/produits', require('./routes/produit_route'));
+app.use('/api/products', require('./routes/productRoutes'));
 
 // Gestion d'erreurs CSRF
 app.use((err, req, res, next) => {
     if (err.code === 'EBADCSRFTOKEN') {
-        res.status(403).json({ message: 'le token crsf invalide ' });
+        res.status(403).json({ message: 'Invalid CSRF token' });
     } else {
         next(err);
     }
