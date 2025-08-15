@@ -19,6 +19,14 @@ app.use('/order', orderRoute); // Middleware pour les routes de commande
 
 app.use(cors()); // Middleware CORS pour autoriser les requêtes cross-origin
 
+
+const swaggerDocs = require("./swagger");
+swaggerDocs(app);
+
+require("./models/user"); // Importation du modèle utilisateur
+require("./models/produit"); // Importation du modèle produit
+require("./models/order"); // Importation du modèle de commande
+
 connectDB(); // Connexion à la base de données MongoDB
 
 const PORT = process.env.PORT || 4500 ;  //

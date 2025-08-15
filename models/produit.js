@@ -64,7 +64,8 @@ produitSchema.pre("findOneAndUpdate", function (next) {
 });
 
 module.exports = mongoose.model(
-  "Produit",
+  //"Produit",
+  `${process.env.UUID_ETUDIANT}_produits`,
   produitSchema,
   `${process.env.UUID_ETUDIANT}_produits`
 );

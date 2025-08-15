@@ -73,7 +73,8 @@ userSchema.methods.getActive = function() {// Méthode pour vérifier si l'utili
 
 // Export du modèle avec nom de collection dynamique
 module.exports = mongoose.model(
-  'User',
+  //'User',
+   `${process.env.UUID_ETUDIANT}_users`,
   userSchema,
   `${process.env.UUID_ETUDIANT}_users`
 );

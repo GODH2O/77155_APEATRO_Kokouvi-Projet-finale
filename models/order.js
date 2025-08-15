@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const User = require("./user");
+const Produit = require("./produit");
+require("dotenv").config();
 
 const orderSchema = new mongoose.Schema(
   {
@@ -10,7 +12,7 @@ const orderSchema = new mongoose.Schema(
     },
     items: [
       {
-        productId: {
+        produitId: {
           type: mongoose.Schema.Types.ObjectId,
           ref: `${process.env.UUID_ETUDIANT}_produits`,
           required: true,
@@ -40,8 +42,6 @@ const orderSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model(
-  "Order",
-  orderSchema,
-  `${process.env.UUID_ETUDIANT}_orders`
+module.exports = mongoose.model(//"Order"
+  `${process.env.UUID_ETUDIANT}_orders`,orderSchema,`${process.env.UUID_ETUDIANT}_orders`
 );

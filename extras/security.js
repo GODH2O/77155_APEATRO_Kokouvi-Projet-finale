@@ -1,72 +1,78 @@
-// Installation des packages :
-// npm install cors helmet xss-clean csurf  cookie-parser
-
-
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const xss = require('xss-clean');
-const csrf = require('csurf');
-const cookieParser = require('cookie-parser');
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const helmet = require("helmet");
+const xss = require("xss-clean");
+const rateLimit = require("express-rate-limit");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
-// 1. CORS Configuration
+//CORS Configuration
+
 const corsOptions = {
-    origin: ['http://localhost:4500', 'http://localhost:4501'], // Domaines autorisés
-    credentials: true, // Pour les cookies et auth
-    optionsSuccessStatus: 200
+  origin: [
+    "http://localhost:4500", // Front local
+    "http://localhost:4501"
+  ],
+  credentials: true,
+  optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
 
-// 2. Helmet Configuration (sécurité des headers)
-app.use(helmet({
+
+//Helmet Security Headers
+
+app.use(
+  helmet({
     contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["'self'"],
-            styleSrc: ["'self'", "'unsafe-inline'"],
-            scriptSrc: ["'self'"],
-            imgSrc: ["'self'", "data:", "https:"],
-        },
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        scriptSrc: ["'self'"],
+        imgSrc: ["'self'", "data:", "https:"],
+      },
     },
-    crossOriginEmbedderPolicy: false // Si vous avez des problèmes avec les images
-}));
+    crossOriginEmbedderPolicy: false
+  })
+);
 
-// 3. XSS Protection
-app.use(xss()); // Nettoie les données malveillantes
 
-// 4. Body parsing middleware
-app.use(express.json({ limit: '10mb' }));
+//XSS Protection
+
+app.use(xss());
+
+
+//Rate Limiting
+
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 min
+  max: 100, // Max requêtes par IP
+  message: { message: "Trop de requêtes, réessayez plus tard." }
+});
+app.use("/api", apiLimiter);
+
+// Body Parsing
+
+app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// 5. CSRF Protection
-const csrfProtection = csrf({
-    cookie: {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // HTTPS en production
-        sameSite: 'strict'
-    }
-});
 
-// Appliquer CSRF sur les routes qui en ont besoin
-app.use('/api', csrfProtection);
+//Routes API
 
-// Route pour obtenir le token CSRF
-app.get('/api/csrf-token', (req, res) => {
-    res.json({ csrfToken: req.csrfToken() });
-});
+app.use("/api/users", require("./routes/user.routes"));
+app.use("/api/products", require("./routes/product.routes"));
+app.use("/api/orders", require("./routes/order.routes"));
 
-// Vos routes ici...
-app.use('/api/products', require('./routes/productRoutes'));
 
-// Gestion d'erreurs CSRF
+//Gestion globale des erreurs
+
 app.use((err, req, res, next) => {
-    if (err.code === 'EBADCSRFTOKEN') {
-        res.status(403).json({ message: 'Invalid CSRF token' });
-    } else {
-        next(err);
-    }
+  console.error(err.stack);
+  res.status(err.status || 500).json({
+    message: err.message || "Erreur interne du serveur"
+  });
 });
 
 module.exports = app;
