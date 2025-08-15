@@ -6,7 +6,7 @@ const auth = require("../middleware/auth"); // Importation du middleware d'authe
 
 router.post('/',auth,authRoles(["admin", "gerant"]) ,action_Produits.addProduit); // Route pour ajouter un nouveau produit
 router.get('/',auth ,action_Produits.getAllProduits); // Route pour récupérer tous les produits
-router.get('/user', action_Produits.getAllProductsByUserId);// Route pour récupérer tous les produits par ID utilisateur
-router.delete('/:id', action_Produits.deleteProductById); // Route pour supprimer un produit par son ID
-router.put('/:id', action_Produits.updateProductById ); // Route pour mettre à jour un
+router.get('/user',auth , action_Produits.getAllProductsByUserId);// Route pour récupérer tous les produits par ID utilisateur
+router.delete('/:id',auth ,authRoles(["admin"]) ,action_Produits.deleteProductById); // Route pour supprimer un produit par son ID
+router.put('/:id',auth ,authRoles(["admin", "gerant"]) ,action_Produits.updateProductById ); // Route pour mettre à jour un
 module.exports = router; // Exportation du routeur pour l'utiliser dans d'autres fichiers

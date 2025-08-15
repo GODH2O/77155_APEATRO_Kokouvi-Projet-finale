@@ -6,7 +6,7 @@ dotenv.config(); // Chargement des variables d'environnement depuis le fichier .
 //declaration du middleware d'authentification
 const auth = (req, res, next) => { //
     // Recupére l'en-tete authorization envoye par le client 
-    const tokenHeader = req.headers.authorizotion;
+    const tokenHeader = req.headers.authorization;
 
     if (!tokenHeader) {// Si l'en-tête d'autorisation n'est pas présent
         return res.status(403).json({ message: "Accès interdite, tokent manquante "});
@@ -14,7 +14,7 @@ const auth = (req, res, next) => { //
 }
 
 //on decoupe la chaine en deux parties pour recuperer le token
-const token_Parts = tokentHeader.split("");
+const token_Parts = tokenHeader.split(" "); // Sépare l'en-tête d'autorisation en deux parties
 if (token_Parts[0] !== 'Bearer' || token_Parts.length !== 2){
     return res.status(401).json({ message: "Accès interdit, token invalide" }); // token_list[0] devrait être "Bearer si non, accès interdit"
 }

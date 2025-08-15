@@ -9,7 +9,7 @@ const generateToken = (user, role, isActive) => {
         role: role,
         isActive: isActive,
     };
-    return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '14min' });
+    return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '12H' });
 };
 
 // Génère un refresh token valable 1 jour

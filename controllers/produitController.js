@@ -60,7 +60,7 @@ const getAllProductsByUserId = async (req, res) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         if (decoded.id !== user_id) {
-            return res.status(403).json({ message: 'User ID does not match with the token' });
+            return res.status(403).json({ message: 'user a un id qui ne correspond pas ' });
         }
     } catch (error) {
         return res.status(403).json({ message: 'Invalid token', error: error.message });
